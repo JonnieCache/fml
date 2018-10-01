@@ -106,7 +106,7 @@ module CapybaraHelper
   end
   
   def open_new_task_form
-    click_on 'Add new task'
+    within('header') {click_on 'Add new task'}
   end
   
   def edit_task(original: {}, name: 'test', description: 'lol', value: 1, recurring: true)
