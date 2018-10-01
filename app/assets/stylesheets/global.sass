@@ -5,6 +5,7 @@ $margin: 20px
 $brand-primary: #4869e0
 $btn-success-bg: #554a86
 $btn-success-border: lighten($btn-success-bg, 80%)
+$font-family-sans-serif: 'Barlow Semi Condensed', sans-serif
 
 @import "bootstrap/scss/bootstrap"
 $fa-font-path: "../../../node_modules/font-awesome/fonts"
@@ -34,7 +35,7 @@ html
   padding-right: 0 !important
   
 h1, h2, h3, h4, h5, h6
-  font-family: 'Codystar', sans-serif
+  font-family: 'Barlow', sans-serif
   
 @include media-breakpoint-down(sm)
   h1
@@ -298,11 +299,6 @@ tr[draggable=true].sortable-chosen.sortable-ghost
   background-color: #cbd4f6
   border-bottom-left-radius: 0.3rem
   border-bottom-right-radius: 0.3rem
-      
-.card-header
-  h4
-    font-size: 4vh
-    
     
 .modal-header
   background-image: url('/assets/img/blue_polys_5.png')

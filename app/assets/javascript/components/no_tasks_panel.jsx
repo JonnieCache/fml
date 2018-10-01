@@ -19,7 +19,7 @@ export default class TaskCards extends React.Component {
               <h1 className="login-header">No Tasks Yet!</h1>
             </div>
             <div className="modal-body text-center" onClick={this.newTask}>
-              <h4 className="normal-font pointer">Click here or on the <button className="btn btn-sm add-task" title="Add new task"><i className="fa fa-plus"></i></button> in the top right to get started</h4>
+              <h4 className="pointer">Click here or on the <button className="btn btn-sm add-task" title="Add new task"><i className="fa fa-plus"></i></button> in the top right to get started</h4>
             </div>
           </div>
           
