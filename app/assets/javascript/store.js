@@ -117,7 +117,6 @@ class Store {
         });
       } else if(resp.status == 422) {
         resp.json().then((json)=> {
-          // debugger;
           this.fire('SIGNUP_FAILED', json);
         });
       }

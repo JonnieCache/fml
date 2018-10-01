@@ -150,8 +150,6 @@ export default class SearchBox extends React.Component {
       return null;
     }
     
-    console.log('state: ');
-    console.log(this.state);
     var results = this.state.results;
     var resultsFound = this.state.results !== undefined;
     if(!resultsFound) results = [];
