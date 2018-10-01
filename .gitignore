@@ -1,0 +1,15 @@
+**/.env*
+**/!.env.sample
+public/assets/*
+!public/assets/img
+node_modules
+vendor
+bin
+.bundle
+rebuild
+tmp
+*.sql*
+builds
+.yardoc
+doc
+

@@ -1,0 +1,8 @@
+builder:
+  class: ScriptBuilder
+  config:
+    command: docker-compose -f docker/docker-compose.yml run build
+tester:
+  class: ScriptTester
+  config:
+    command: docker-compose -f docker/docker-compose.yml run test

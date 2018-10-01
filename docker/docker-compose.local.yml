@@ -1,0 +1,11 @@
+version: '3.4'
+services:
+  web:
+    image: fml-web
+    volumes:
+      - type: bind
+        source: ..
+        target: /fml/
+      - type: bind
+        source: /Users/jonnie/resources/letsencrypt/
+        target: /etc/letsencrypt/

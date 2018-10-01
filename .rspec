@@ -1,0 +1,5 @@
+--color
+--require spec_helper
+--order random
+--format Fuubar
+--format Nc

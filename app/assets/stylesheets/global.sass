@@ -1,0 +1,376 @@
+$footer-handle-height: 50px
+$footer-height: 340px
+$footer-expanded-height: $footer-height + $footer-handle-height + 20px
+$margin: 20px
+$brand-primary: #4869e0
+$btn-success-bg: #554a86
+$btn-success-border: lighten($btn-success-bg, 80%)
+
+@import "bootstrap/scss/bootstrap"
+$fa-font-path: "../../../node_modules/font-awesome/fonts"
+@import "font-awesome/scss/font-awesome"
+
+$select-menu-max-height: 190px
+@import "react-select/scss/default"
+
+::selection
+  color: white
+  background: #5f3d7f
+
+::-moz-selection
+  color: white
+  background: #5f3d7f
+
+body, html
+  height: 100%
+  background-image: url('/assets/img/blue_polys_5.png')
+  background-repeat: no-repeat
+  background-size: cover
+
+html
+  overflow-y: scroll
+  
+.modal-open
+  padding-right: 0 !important
+  
+h1, h2, h3, h4, h5, h6
+  font-family: 'Codystar', sans-serif
+  
+@include media-breakpoint-down(sm)
+  h1
+    font-size: 2rem
+    margin-bottom: 0
+    
+.task-cards
+  margin: 0 $margin $footer-handle-height $margin
+  @include media-breakpoint-down(sm)
+    margin: 0 $margin/2 $footer-handle-height/2 $margin/2
+  
+label
+  text-align: right
+
+.form-buttons
+  text-align: right
+  margin-bottom: 1rem
+  
+.btn-success::after
+  content: " »"
+    
+#logo
+  // position: absolute
+  // top: 13px
+  // margin-right: 0.75rem
+  // left: 13px
+  max-width: 14rem
+  -moz-image-rendering: crisp-edges
+  image-rendering: pixelated
+  
+  &.login
+    max-width: 100%
+    width: 85vw
+    margin-top: 3vh
+    margin-bottom: 2vh
+    @include media-breakpoint-up(sm)
+      width: 50vw
+      margin-top: 15vh
+      margin-bottom: 5vh
+    
+nav.top, header
+  width: 100%
+  // display: block !important
+  text-align: center
+  // padding-top: 1rem
+  // padding-bottom: 1rem
+  margin-bottom: 1rem
+  background-color: rgba(0,0,0,0.3)
+  color: white
+  padding: 0.75rem
+  padding-left: $margin
+  @include media-breakpoint-down(sm)
+    padding: 10px
+    padding-bottom: 5px
+    font-size: 0.75rem
+    margin-bottom: 0.6rem
+    
+  .btn
+    background: white
+    opacity: 0.3
+    transition: opacity 200ms
+    &:hover
+      opacity: 0.8
+    margin-top: 5px
+    margin-right: 3px
+    &:last-child
+      margin-right: 0
+  p
+    margin: 0
+    // margin-left: 1rem
+    
+  .logo-holder
+    flex-direction: row
+    width: 100%
+    @include media-breakpoint-down(sm)
+      width: 75%
+      flex-direction: column
+      
+  #needs-meters
+    width: 100%
+    padding: 0 1rem
+    @include media-breakpoint-down(sm)
+      padding: 0
+      margin-top: 1rem
+    
+  
+  
+.green
+  background-color: $green
+  
+.blue
+  background-color: $blue
+    
+span.tag
+  padding: 2px 4px
+  max-height: 1.5rem
+  box-sizing: content-box
+  margin-right: 1rem
+  border-radius: 3px
+  box-shadow: 1px 1px 1px #222
+
+.card-icons
+  .card
+    border: 0
+    margin-bottom: 0
+    text-align: center
+  .fa
+    color: #999
+    &.active
+      text-shadow: 1px 1px 1px #222
+      color: rgb(41, 43, 44)
+      
+.value
+  font-family: 'Geostar Fill'
+  font-size: 1.33333em
+  line-height: 1.25em
+  text-shadow: 1px 1px 1px #222
+  position: relative
+  .value-real
+    z-index: 10
+    width: 100%
+    top: 0
+    position: absolute
+    display: block
+  .value-ghost
+    opacity: 0
+    color: lighten(magenta, 15%)
+    width: 100%
+    top: 0
+    position: absolute
+    display: block
+    
+    &.ghost-enter-active
+      animation-name: ghost
+      animation-iteration-count: 1
+      animation-timing-function: ease-out
+      animation-duration: 1s
+        
+@keyframes ghost
+  from
+    opacity: 0
+    top: 0
+    text-shadow: 0 0 1px magenta
+  
+  25%
+    opacity: 1
+
+  60%
+    top: -4rem
+    text-shadow: 0 0 30px magenta
+  
+  to
+    opacity: 0
+    top: -4rem
+    text-shadow: 0 0 30px magenta
+
+.overlay-ghost
+  top: 0 !important
+  left: 0
+  position: fixed !important
+  width: 100%
+  font-size: 20vw
+  height: 100%
+  padding-top: 40vh
+  text-align: center
+  color: magenta
+  
+.meter-container
+  display: table-row
+  align-items: center
+  justify-content: center
+  line-height: 1.65
+
+.meter-label
+  display: table-cell
+  width: 5%
+  text-align: right
+  padding-right: 5px
+
+.progressbar-container
+  border: 1px solid #999
+  // flex: 1
+  height: 12px
+  
+.menu-outer-top .Select-menu-outer
+  bottom: 35px !important
+  border-bottom-right-radius: 0px !important
+  border-bottom-left-radius: 0px !important
+  border-top-right-radius: 4px !important
+  border-top-left-radius: 4px !important
+  
+.Select-menu-outer
+  top: inherit !important
+  
+.sortHandle
+  opacity: 0
+  margin-right: 10px
+  
+  
+tr:hover, .sortable-chosen, .sortable-ghost
+  .sortHandle
+    opacity: 1
+  
+.sortable-drag
+   opacity: 0
+   
+.sorting
+  tr:hover
+    .sortHandle
+      opacity: 0
+      
+tr[draggable=true].sortable-chosen.sortable-ghost
+  .sortHandle
+    opacity: 1
+
+.card-columns
+  @include media-breakpoint-only(lg)
+    column-count: 3
+
+  @include media-breakpoint-only(xl)
+    column-count: 4
+
+.card
+  background: none
+
+.card-header, .modal-header
+  background-color: rgba(0,0,0,0.3)
+  color: white
+  padding: 0.75rem
+  border-top: 1px solid rgba(0,0,0,0.5)
+  border-right: 1px solid rgba(0,0,0,0.5)
+  border-left: 1px solid rgba(0,0,0,0.5)
+  ::selection
+    color: white
+    background: lighten(#5f3d7f, 30%)
+  ::-moz-selection
+    color: white
+    background: #5f3d7f
+  
+  h5
+    text-shadow: 1px 1px 1px #7a6cb1
+    font-size: 1.8rem
+    margin: 0
+    
+    i
+      margin-left: 5px
+      margin-right: 1rem
+      margin-top: 5px
+      display: flex
+      
+.modal-title
+  display: flex
+  align-items: flex start
+.modal-header
+  border-top-left-radius: 0.3rem
+  border-top-right-radius: 0.3rem
+  border-top: 1px solid white
+  border-right: 1px solid white
+  border-left: 1px solid white
+.modal-body
+  background-color: #cbd4f6
+  border-bottom-left-radius: 0.3rem
+  border-bottom-right-radius: 0.3rem
+      
+.card-header
+  h4
+    font-size: 4vh
+    
+    
+.modal-header
+  background-image: url('/assets/img/blue_polys_5.png')
+  background-position: 0 0
+  
+.close
+    color: #999
+    opacity: 1
+    
+    &:hover
+      color: #eee
+  
+.card-footer
+  background-color: lighten($brand-primary, 20%)
+  text-align: right
+
+.task-card
+  padding: 0.75rem
+  background: lighten($brand-primary, 30%)
+
+input.search
+  padding: 5px
+  width: 100%
+
+.search-results
+  
+  p.result-row
+    padding: 8px
+    border: 1px solid
+    border-bottom: none
+    &:last-child
+      border-bottom: 1px solid
+    margin: 0
+    
+    &.selected-result
+      background-color: lighten($brand-primary, 20%)
+
+.search-box-modal .modal-dialog
+  margin-top: 0
+
+
+.error
+  margin-bottom: 15px
+  text-align: center
+  color: adjust-hue($brand-primary, 90)
+  .error-real
+    z-index: 10
+    // width: 90%
+    // top: 0
+    // position: absolute
+    display: block
+  .error-ghost
+    opacity: 0
+    color: lighten(magenta, 15%)
+    width: 90%
+    top: 0
+    position: absolute
+    display: block
+    
+    &.ghost-enter-active
+      animation-name: ghost
+      animation-iteration-count: 1
+      animation-timing-function: ease-out
+      animation-duration: 1s
+
+.login-card
+  @include media-breakpoint-up(sm)
+    width: 60vw
+  h1
+    width: 100%
+    text-align: center
