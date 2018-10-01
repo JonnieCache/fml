@@ -3,6 +3,7 @@ import NewTaskForm from 'components/new_task_form'
 import EditTaskForm from 'components/edit_task_form'
 import EditTagForm from 'components/edit_tag_form'
 import TaskCards from 'components/task_cards'
+import NoTasksPanel from 'components/no_tasks_panel'
 import Login from 'components/login'
 import NeedsMeters from 'components/needs_meters'
 import SearchBox from 'components/search_box'
@@ -68,7 +69,7 @@ export default class App extends React.Component {
                 {...this.props}
               />
             </div>
-            <div className="scoreBoard text-right">
+            <div className="scores text-right">
               <p>Score: <span id="score">{this.props.score}</span></p>
               <p>Combo: {this.props.combo}x</p>
               <button className="btn btn-sm add-task" onClick={this.newTask} title="Add new task"><i className="fa fa-plus"></i></button>
@@ -76,6 +77,7 @@ export default class App extends React.Component {
             </div>
           </header>
           <TaskCards    {...this.props} />
+          <NoTasksPanel {...this.props} /> 
           <NewTaskForm  {...this.props} />
           <EditTaskForm {...this.props} />
           <EditTagForm  {...this.props} />
