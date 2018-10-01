@@ -49,9 +49,9 @@ services:
          target: /fml/
 
     environment:
-      - DB_NAME=fml_development
-      - DB_HOST=host.docker.internal
-      - DB_USERNAME=fml
-      - DB_PASSWORD=fml
+      - DB_NAME
+      - DB_HOST
+      - DB_USERNAME
+      - DB_PASSWORD
       - RACK_ENV=production
     
