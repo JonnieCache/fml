@@ -3,9 +3,6 @@ import TaskCard from 'components/task_card'
 
 export default class TaskCards extends React.Component {
   
-  onKeyUp(e){
-  }
-  
   render(){
     var cards = this.props.tasks.
       filter(task=> task.state == 'incomplete').
