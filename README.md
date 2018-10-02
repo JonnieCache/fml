@@ -2,7 +2,7 @@
 
 ## Fix My Life
 
-FML is an app in which you assign yourself tasks to do, and assign various point values to them. You log the completions of the tasks, and clock up a running total of points. In other words, it's a standard task tracking app with elements of gamification. It also has an ugly purple color scheme. [You can sign up and use it here.](http://fml.cleverna.me)
+FML is an app in which you give yourself tasks to do, and assign various point values to them. You log the completions of the tasks, and clock up a running total of points. In other words, it's a standard task tracking app with elements of gamification. It also has an ugly purple color scheme. [You can sign up and use it here.](http://fml.cleverna.me)
 
 ## Getting Started
 
