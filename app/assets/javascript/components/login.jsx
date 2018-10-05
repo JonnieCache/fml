@@ -83,7 +83,7 @@ export default class Login extends React.Component {
               </div>
               <form className="" onSubmit={this.login}>
                 <div className="form-group">
-                  <input className="form-control" type="text" value={this.state.login} onChange={this.update} name="login" placeholder="Email" autoFocus="true" />
+                  <input className="form-control" type="email" value={this.state.login} onChange={this.update} name="login" placeholder="Email" autoFocus="true" />
                 </div>
                 <div className="form-group">
                   <input className="form-control" type="password" value={this.state.password} onChange={this.update} name="password" placeholder="Password" />
