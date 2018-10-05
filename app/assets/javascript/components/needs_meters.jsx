@@ -26,7 +26,7 @@ export default class NeedsMeters extends React.Component {
     };
     
     return (
-      <div className="media-body align-self-center" id="needs-meters">{meters}</div>
+      <div className="media-body" id="needs-meters">{meters}</div>
     )
   }
 }

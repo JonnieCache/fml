@@ -84,9 +84,7 @@ export default class App extends React.Component {
           <header className="media justify-content-between">
             <div className="d-flex logo-holder">
               <img id="logo" src="/assets/img/fml_logo2.svg" alt="FML" />
-              <NeedsMeters
-                {...this.props}
-              />
+              <NeedsMeters {...this.props} />
             </div>
             <div className="scores text-right">
               <p>Score: <span id="score">{this.props.score}</span></p>
