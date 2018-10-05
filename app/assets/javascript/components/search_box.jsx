@@ -39,6 +39,7 @@ export default class SearchBox extends React.Component {
     this.selectNextResult = this.selectNextResult.bind(this);
     this.completeTask = this.completeTask.bind(this);
     this.reset = this.reset.bind(this);
+    this.click = this.click.bind(this);
     
     this.initWade();
   }
@@ -142,7 +143,17 @@ export default class SearchBox extends React.Component {
     this.setState({
       selectedResultId: newId,
       selectedResultIndex: newIndex
-    })
+    });
+  }
+  
+  click(e) {
+    var newIndex = Array.from(e.currentTarget.parentNode.children).indexOf(e.currentTarget);
+    var newId = this.state.results[newIndex].id;
+    
+    this.setState({
+      selectedResultId: newId,
+      selectedResultIndex: newIndex
+    }, ()=> window.setTimeout(this.completeTask, 150));
   }
   
   render(){
@@ -157,14 +168,14 @@ export default class SearchBox extends React.Component {
     const resultRows = results.map((result)=> {
       if(result.id == this.state.selectedResultId) {
         return (
-          <p key={result.id} className="result-row d-flex justify-content-between selected-result">
+          <p key={result.id} onClick={this.click} className="pointer result-row d-flex justify-content-between selected-result">
             <span className="justify-content-start">{result.name}</span>
             <Tag {...this.props} tag={this.props.tags[result.tag_id]} />
           </p>
         );
       } else {
         return (
-          <p key={result.id} className="result-row d-flex justify-content-between">
+          <p key={result.id} onClick={this.click} className="pointer result-row d-flex justify-content-between">
             <span className="justify-content-start">{result.name}</span>
             <Tag {...this.props} tag={this.props.tags[result.tag_id]} />
           </p>
