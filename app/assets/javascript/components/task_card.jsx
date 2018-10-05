@@ -35,21 +35,11 @@ export default class TaskCard extends React.Component {
     store.fire('TASK_EDIT_START', this.props.task);
   }
 
-  // editTag() {
-  //   store.fire('TAG_EDIT_START', this.tag());
-  // }
-  
   tag() {
     return this.props.tags[this.props.task.tag_id];
   }
-
   
-  // }
-  // }
-  // reorder(taskIds, sortable, event) {
   ghostVanish(e) {
-  //   store.reorderTasks(taskIds);
-  // }
     e.currentTarget.remove();
   }
   

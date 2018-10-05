@@ -73,7 +73,6 @@ describe 'Search UI' do
     it 'finds the right task' do
       go_home
       add_new_task name: 'go to school', tag: 'mytag'
-      # sleep 2; binding.pry; 
       open_search
 
       fill_in 'search-term', with: 'go to'
