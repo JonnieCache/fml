@@ -15,8 +15,8 @@ Capybara.register_driver :headless_chrome do |app|
     desired_capabilities: capabilities
 end
 
-Capybara.default_driver = RUBY_PLATFORM =~ /darwin/ ? :selenium : :headless_chrome
-# Capybara.default_driver = :headless_chrome
+# Capybara.default_driver = RUBY_PLATFORM =~ /darwin/ ? :selenium : :headless_chrome
+Capybara.default_driver = :headless_chrome
 
 Capybara.app = Rack::Builder.parse_file('config.ru').first
 # Capybara.default_max_wait_time = 5
