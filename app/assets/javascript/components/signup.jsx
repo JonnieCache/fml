@@ -92,13 +92,7 @@ export default class Signup extends React.Component {
             </div>
             <div className="modal-body">
               <div className="error">
-                <CSSTransitionGroup
-                  transitionName="ghost"
-                  transitionEnterTimeout={1000}
-                  transitionLeaveTimeout={500}
-                >
-                  {ghosts}
-                </CSSTransitionGroup>
+                {ghosts}
                 <div className={errorClass}>{this.state.error.error}:<br />{errMsg}</div>
               </div>
               <form className="d-flex flex-column" onSubmit={this.signup}>

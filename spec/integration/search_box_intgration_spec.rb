@@ -51,6 +51,21 @@ describe 'Search UI' do
         expect(score).to eq 1
         
       end
+      
+      it 'doesnt affect the UI afterwards' do
+        go_home
+        open_search
+        fill_in 'search-term', with: 'go to school'
+        
+        find_field('search-term').send_keys :enter
+        
+        card = find_task_element(task3)
+        within(card) {click_on 'Complete!'}
+        
+        sleep 0.1
+        expect(score).to eq 7
+        
+      end
     end
   end
   

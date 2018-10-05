@@ -68,13 +68,17 @@ export default class App extends React.Component {
     store.logout();
   }
   
+  ghostVanish(e) {
+    e.currentTarget.remove();
+  }
+  
   render(){
     if(!this.props.tasks){
       return (
         <p>Loading...</p>
       )
     } else {
-      const ghosts = this.state.overlayGhosts.map((ghost)=> (<span key={ghost} className="value-ghost overlay-ghost">{ghost}</span>));
+      const ghosts = this.state.overlayGhosts.map((ghost)=> (<span key={ghost} onAnimationEnd={this.ghostVanish} className="value-ghost overlay-ghost ghost-enter-active">{ghost}</span>));
       return (
         <div>
           <header className="media justify-content-between">
@@ -98,13 +102,7 @@ export default class App extends React.Component {
           <EditTagForm  {...this.props} />
           <SearchBox    {...this.props} />
           <div className="value">
-            <CSSTransitionGroup
-              transitionName="ghost"
-              transitionEnterTimeout={1000}
-              transitionLeaveTimeout={1000}
-            >
-              {ghosts}
-            </CSSTransitionGroup>
+            {ghosts}
           </div>
         </div>
       )

@@ -13,6 +13,7 @@ export default class TaskCard extends React.Component {
     
     this.complete = this.complete.bind(this);
     this.edit = this.edit.bind(this);
+    this.ghostVanish = this.ghostVanish.bind(this);
     
     this.state = {
       ghosts: [],
@@ -42,9 +43,15 @@ export default class TaskCard extends React.Component {
     return this.props.tags[this.props.task.tag_id];
   }
 
+  
+  // }
+  // }
   // reorder(taskIds, sortable, event) {
+  ghostVanish(e) {
   //   store.reorderTasks(taskIds);
   // }
+    e.currentTarget.remove();
+  }
   
   render() {
     const buttons = [];
@@ -76,7 +83,7 @@ export default class TaskCard extends React.Component {
       'active': this.props.task.daily
     })
     
-    const ghosts = this.state.ghosts.map((ghost)=> (<span key={ghost} className="value-ghost">{ghost}</span>));
+    const ghosts = this.state.ghosts.map((ghost)=> (<span key={ghost} onAnimationEnd={this.ghostVanish} className="value-ghost ghost-enter-active">{ghost}</span>));
     
     return (
       <div data-id={this.props.task.id} className="card">
@@ -88,17 +95,8 @@ export default class TaskCard extends React.Component {
             <div className="d-flex justify-content-around">
               <div className="w-100 text-center">{tagElement}</div>
               <div className="w-100 text-center"><i className={recurringClass}/></div>
-              {
-                //<div className="card"><i className={dailyClass}/></div>
-              }
               <div className="w-100 text-center value">
-                <CSSTransitionGroup
-                  transitionName="ghost"
-                  transitionEnterTimeout={1000}
-                  transitionLeaveTimeout={1000}
-                >
-                  {ghosts}
-                </CSSTransitionGroup>
+                {ghosts}
                 <span className="value-real">{this.props.task.value}</span>
               </div>
             </div>

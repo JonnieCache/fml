@@ -78,13 +78,7 @@ export default class Login extends React.Component {
             </div>
             <div className="modal-body">
               <div className="error">
-                <CSSTransitionGroup
-                  transitionName="ghost"
-                  transitionEnterTimeout={1000}
-                  transitionLeaveTimeout={500}
-                >
-                  {ghosts}
-                </CSSTransitionGroup>
+                {ghosts}
                 <div className={errorClass}>Incorrect email/password</div>
               </div>
               <form className="" onSubmit={this.login}>
