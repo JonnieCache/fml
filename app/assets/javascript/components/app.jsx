@@ -10,6 +10,7 @@ import SearchBox from 'components/search_box'
 import { CSSTransitionGroup } from 'react-transition-group'
 import mapValues from 'lodash.mapvalues'
 import {store} from 'store'
+import Shake from 'shake.js'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -19,7 +20,14 @@ export default class App extends React.Component {
       overlayGhosts: []
     }
     
+    this.shake = new Shake({
+        threshold: 15,
+        timeout: 1000
+    });
+    this.shake.start();
+    
     this.spacebar = this.spacebar.bind(this);
+    this.shakeEvent = this.shakeEvent.bind(this);
   }
   
   spacebar(e) {
@@ -30,8 +38,13 @@ export default class App extends React.Component {
     }
   }
   
+  shakeEvent(e) {
+    store.fire('SEARCH_START');
+  }
+  
   componentDidMount() {
     window.document.addEventListener('keydown', this.spacebar);
+    window.addEventListener('shake', this.shakeEvent, false);
     
     store.on('TASK_COMPLETED_FROM_SEARCH', (task) =>{
       this.setState((newState)=>{
@@ -43,6 +56,8 @@ export default class App extends React.Component {
   
   componentWillUnmount() {
     window.document.removeEventListener('keydown', this.spacebar);
+    window.removeEventListener('shake', this.shakeEvent);
+    this.shake.stop();
   }
   
   newTask() {
