@@ -21,6 +21,7 @@ gem 'paint'
 gem 'jwt'
 gem 'bcrypt'
 gem 'mail'
+# gem 'rubyzip', '>1.2.1'
 
 group :development do
   gem 'guard'
