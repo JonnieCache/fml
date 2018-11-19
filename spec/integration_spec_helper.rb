@@ -125,6 +125,7 @@ module CapybaraHelper
   def fill_in_task_form(name: 'test', description: 'lol', value: 1, recurring: true, tag: 'mytag')
     fill_in 'Name', with: name
     fill_in 'Value', with: value
+
     find('input[name=recurring]').set recurring
     
     input = find('.select-tags').find('input')
@@ -140,13 +141,17 @@ module CapybaraHelper
     cards = page.find_all card_selector
     
     card = cards.find do |card|
-      # binding.pry; 
+      
       if query[:name]
         next unless card.has_selector? ".card-title", text: query[:name]
       end
       
       if query[:tag]
         next unless card.has_selector? "span.tag", text: query[:tag]
+      end
+      
+      if !query[:recurring].nil?
+        next unless card.has_selector?('.fa-refresh.active') == query[:recurring]
       end
       
       true

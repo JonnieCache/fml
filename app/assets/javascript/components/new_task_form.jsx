@@ -25,7 +25,15 @@ export default class NewTaskForm extends TaskForm {
   }
   
   update(e) {
-    store.fire('NEW_TASK_UPDATED', {[e.target.name]: e.target.value})
+    var value;
+    
+    if(e.target.type == 'checkbox') {
+      value = e.target.checked;
+    } else {
+      value = e.target.value
+    }
+    
+    store.fire('NEW_TASK_UPDATED', {[e.target.name]: value})
   }
   
   updateTags(tag) {
