@@ -26,16 +26,31 @@ export default class App extends React.Component {
     });
     this.shake.start();
     
-    this.spacebar = this.spacebar.bind(this);
+    this.keydown = this.keydown.bind(this);
     this.shakeEvent = this.shakeEvent.bind(this);
   }
   
-  spacebar(e) {
-    if(e.key == ' ' && !(e.target.tagName == 'INPUT')){
-      e.preventDefault();
-      store.fire('SEARCH_START');
-      return false;
+  keydown(e) {
+    if(e.target.tagName == 'INPUT' && e.key !== 'Escape') {
+      return true;
     }
+    
+    switch(e.key) {
+      case ' ':
+        store.fire('SEARCH_START');
+        
+        break;
+      case 'Escape':
+        store.fire('SEARCH_FINISHED');
+        store.fire('EDITING_FINISHED');
+        
+        break;
+      default:
+        return true;
+    }
+    
+    e.preventDefault();
+    return false;
   }
   
   shakeEvent(e) {
@@ -43,7 +58,7 @@ export default class App extends React.Component {
   }
   
   componentDidMount() {
-    window.document.addEventListener('keydown', this.spacebar);
+    window.document.addEventListener('keydown', this.keydown);
     window.addEventListener('shake', this.shakeEvent, false);
     
     store.on('TASK_COMPLETED_FROM_SEARCH', (task) =>{
@@ -55,7 +70,7 @@ export default class App extends React.Component {
   }
   
   componentWillUnmount() {
-    window.document.removeEventListener('keydown', this.spacebar);
+    window.document.removeEventListener('keydown', this.keydown);
     window.removeEventListener('shake', this.shakeEvent);
     this.shake.stop();
   }

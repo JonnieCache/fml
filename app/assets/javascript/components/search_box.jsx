@@ -59,10 +59,6 @@ export default class SearchBox extends React.Component {
   }
   
   close(e) {
-    if(e !== undefined) {
-      e.preventDefault();
-    }
-  
     store.fire('SEARCH_FINISHED');
     
     return false;

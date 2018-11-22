@@ -132,6 +132,10 @@ export default class Controller extends React.Component {
     });
     
     store.on('SEARCH_START', ()=> {
+      if(this.state.searchInProgress) {
+        store.fire('SEARCH_FINISHED');
+      }
+      
       var newState = {
         newTaskInProgress: false,
         editTaskInProgress: false,
