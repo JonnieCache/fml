@@ -44,7 +44,8 @@ class Store {
     fetch(uri, options).then(response => {
       if(response.status === 200) {
         response.json().then(callback);
-      } else if(response.status == 401) {
+      } else if(response.status == 401 || response.status == 400) {
+        window.localStorage.removeItem('token');
         this.fire('LOGIN_REQUIRED');
       }
     });

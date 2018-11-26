@@ -2,7 +2,7 @@ require 'capybara/rspec'
 # require 'rack_session_access/capybara'
 
 Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, :browser => :chrome)
+  Capybara::Selenium::Driver.new(app, :browser => :chrome, clear_local_storage: true)
 end
 
 Capybara.register_driver :headless_chrome do |app|
@@ -12,6 +12,7 @@ Capybara.register_driver :headless_chrome do |app|
 
   Capybara::Selenium::Driver.new app,
     browser: :chrome,
+    clear_local_storage: true,
     desired_capabilities: capabilities
 end
 
