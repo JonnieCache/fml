@@ -380,3 +380,60 @@ input.search
 
 .pointer:hover
   cursor: pointer
+
+.task-rows
+
+.task-row
+  margin: 0 auto 0.5rem auto
+  display: flex
+  flex-wrap: wrap
+  max-width: 860px
+  // background-color: rgba(0, 0, 0, 0.3)
+  background-color: rgba(100,100,255,0.2)
+  align-items: center
+  padding: 3px 22px 3px 15px
+  
+  @include media-breakpoint-down(sm)
+    align-items: start
+    flex-direction: column
+    padding-bottom: 7px
+    
+    .tag-wrapper
+      text-align: left !important
+      width: 80px !important
+      
+    h4
+      margin-bottom: 0.4rem !important
+  
+  
+  .task-row-data
+    display: flex
+    vertical-align: middle
+  
+  h4
+    flex-grow: 1
+    margin: 0
+    break-after: right
+    
+  .tag-wrapper
+    width: 150px
+    text-align: right
+  
+  i
+    width: 30px
+    line-height: 1.2em
+  
+  .value
+    width: 85px
+    text-align: right
+    padding-right: 10px
+    
+  .btn-group
+    // width: 113px
+    
+  .btn
+    padding: 0 3px 0 3px
+    height: 25px
+  
+  .value-real
+    position: static !important

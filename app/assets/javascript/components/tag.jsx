@@ -17,7 +17,7 @@ export default class Tag extends React.Component {
       <span
         key={this.props.tag.id}
         onClick={this.editTag}
-        className="tag justify-content-end"
+        className="tag"
         style={{backgroundColor: "#"+this.props.tag.color}}
       >
         {this.props.tag.name}

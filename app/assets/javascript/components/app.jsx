@@ -3,6 +3,7 @@ import NewTaskForm from 'components/new_task_form'
 import EditTaskForm from 'components/edit_task_form'
 import EditTagForm from 'components/edit_tag_form'
 import TaskCards from 'components/task_cards'
+import TaskRows from 'components/task_rows'
 import NoTasksPanel from 'components/no_tasks_panel'
 import Login from 'components/login'
 import NeedsMeters from 'components/needs_meters'
@@ -108,7 +109,7 @@ export default class App extends React.Component {
               <button className="btn btn-sm logout" onClick={this.logout} title="Logout"><i className="fa fa-sign-out"></i></button>
             </div>
           </header>
-          <TaskCards    {...this.props} />
+          <TaskCards     {...this.props} />
           <NoTasksPanel {...this.props} /> 
           <NewTaskForm  {...this.props} />
           <EditTaskForm {...this.props} />
