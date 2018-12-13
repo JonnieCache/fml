@@ -22,7 +22,6 @@
     "extract-text-webpack-plugin": ">=3.0.0-beta.3",
     "file-loader": "*",
     "font-awesome": "*",
-    "fsevents": "2.0.1",
     "history": "*",
     "lodash.find": "*",
     "lodash.isequal": "*",

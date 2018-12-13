@@ -1601,10 +1601,6 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
 
-fsevents@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.0.1.tgz#cdc8dc0145fa4198f4500ec09df35e79e5e52cf7"
-
 fsevents@^1.0.0:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.2.4.tgz#f41dcb1af2582af3692da36fc55cbd8e1041c426"
