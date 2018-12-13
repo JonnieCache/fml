@@ -5,6 +5,8 @@ WORKDIR /fml
 RUN apk add --no-cache -u \
   git \
   ruby-dev \
+  python2 \
+  libsass-dev \
   build-base \
   libxml2-dev \
   libxslt-dev \
