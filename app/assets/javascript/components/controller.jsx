@@ -7,19 +7,12 @@ export default class Controller extends React.Component {
   constructor(props) {
     super(props);
     
-    // store.emptyTask = {
-    //   name: '',
-    //   description: '',
-    //   value: 1,
-    //   recurring: false,
-    //   tag_id: null
-    // };
-    
     this.state = {
       newTask: {},
       taskBeingEdited: {},
       tagBeingEdited: {},
-      searchInProgress: false
+      searchInProgress: false,
+      taskView: window.localStorage.getItem('taskView') || 'cards'
     };
     Object.assign(this.state.newTask, store.emptyTask);
   }
@@ -149,6 +142,20 @@ export default class Controller extends React.Component {
     });
     
     store.on('SEARCH_FINISHED', ()=> this.setState({searchInProgress: false}));
+    
+    store.on('TOGGLE_TASK_VIEW', ()=> {
+      this.setState(function(state){
+        if(state.taskView == 'cards') {
+          window.localStorage.setItem('taskView', 'rows')
+          state.taskView = 'rows'
+        } else {
+          window.localStorage.setItem('taskView', 'cards')
+          state.taskView = 'cards'
+        }
+        
+        return state
+      });
+    });
         
     store.getState();
   }

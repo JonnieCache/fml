@@ -11,6 +11,7 @@ import SearchBox from 'components/search_box'
 import { CSSTransitionGroup } from 'react-transition-group'
 import mapValues from 'lodash.mapvalues'
 import {store} from 'store'
+import classnames from 'classnames'
 import Shake from 'shake.js'
 
 export default class App extends React.Component {
@@ -88,6 +89,10 @@ export default class App extends React.Component {
     e.currentTarget.remove();
   }
   
+  toggleTaskView(e) {
+    store.fire('TOGGLE_TASK_VIEW')
+  }
+  
   render(){
     if(!this.props.tasks){
       return (
@@ -95,6 +100,14 @@ export default class App extends React.Component {
       )
     } else {
       const ghosts = this.state.overlayGhosts.map((ghost)=> (<span key={ghost} onAnimationEnd={this.ghostVanish} className="value-ghost overlay-ghost ghost-enter-active">{ghost}</span>));
+      var TaskView = this.props.taskView == 'cards' ? TaskCards : TaskRows
+      
+      const viewIconClass = classnames({
+        'fa': true,
+        'fa-align-justify': this.props.taskView == 'cards',
+        'fa-th': this.props.taskView == 'rows'
+      })
+      
       return (
         <div>
           <header className="media justify-content-between">
@@ -105,11 +118,12 @@ export default class App extends React.Component {
             <div className="scores text-right">
               <p>Score: <span id="score">{this.props.score}</span></p>
               <p>Combo: {this.props.combo}x</p>
+              <button className="btn btn-sm toggle-task-view" onClick={this.toggleTaskView} title="Toggle Task View"><i className={viewIconClass}></i></button>
               <button className="btn btn-sm add-task" onClick={this.newTask} title="Add new task"><i className="fa fa-plus"></i></button>
               <button className="btn btn-sm logout" onClick={this.logout} title="Logout"><i className="fa fa-sign-out"></i></button>
             </div>
           </header>
-          <TaskCards     {...this.props} />
+          <TaskView     {...this.props} />
           <NoTasksPanel {...this.props} /> 
           <NewTaskForm  {...this.props} />
           <EditTaskForm {...this.props} />
