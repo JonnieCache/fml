@@ -22,6 +22,7 @@ gem 'paint'
 gem 'jwt'
 gem 'bcrypt'
 gem 'mail'
+gem 'nokogiri', '1.10.0'
 # gem 'rubyzip', '>1.2.1'
 
 group :development do
