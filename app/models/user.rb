@@ -1,9 +1,11 @@
 require 'app/models/task'
 require 'app/models/completion'
+require 'app/models/nomination'
 
 class User < Sequel::Model
   one_to_many :tasks
   one_to_many :completions
+  one_to_many :nominations
   one_to_many :tags
   attr_accessor :password
   
@@ -14,10 +16,6 @@ class User < Sequel::Model
   def before_save  
     self.values[:password_hash] = password_hash(password) if password
   end
-  
-  # def task_order=(value)
-  #   self[:task_order] = value.pg_array
-  # end
   
   if ENV['RACK_ENV'] == 'test'
     def password_hash_cost

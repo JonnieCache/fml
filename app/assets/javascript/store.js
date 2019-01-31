@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+// import snakeCaseKeys from 'snakecase-keys';
 
 class Store {
   constructor() {
@@ -68,6 +69,24 @@ class Store {
     return this.request('/tasks', (update)=> this.fire('TASK_UPDATED', update), {
       method: 'PUT',
       body: JSON.stringify(task)
+    });
+  }
+  
+  sortTasks(sortData) {
+    // debugger;
+    
+    return this.request('/user', null, {
+      method: 'PUT',
+      body: JSON.stringify({
+        user: {
+          task_order: sortData.taskOrder
+        },
+        nomination: {
+          essential_task: sortData.essentialTaskId,
+          nice_task_1: sortData.niceTask1Id,
+          nice_task_2: sortData.niceTask2Id
+        }
+      })
     });
   }
   

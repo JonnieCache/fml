@@ -78,7 +78,7 @@ export default class TaskCard extends React.Component {
     return (
       <div data-id={this.props.task.id} className="card">
         <div style={{display: 'flex'}} className="card-header">
-          <h4 className="card-title align-self-center" style={{flex: 1}}>{this.props.task.name}</h4>
+          <h4 className="card-title title align-self-center" style={{flex: 1}}>{this.props.task.name}</h4>
         </div>
         <div className="task-card card-block">
           <div className="card-text card-icons">

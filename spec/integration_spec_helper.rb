@@ -16,8 +16,8 @@ Capybara.register_driver :headless_chrome do |app|
     desired_capabilities: capabilities
 end
 
-# Capybara.default_driver = RUBY_PLATFORM =~ /darwin/ ? :selenium : :headless_chrome
-Capybara.default_driver = :headless_chrome
+Capybara.default_driver = RUBY_PLATFORM =~ /darwin/ ? :selenium : :headless_chrome
+# Capybara.default_driver = :headless_chrome
 
 Capybara.app = Rack::Builder.parse_file('config.ru').first
 # Capybara.default_max_wait_time = 5
@@ -51,9 +51,34 @@ Capybara.modify_selector(:link) do
   end
 end
 
+RSpec::Matchers.define :appear_after do |later_content|
+  match do |earlier_content|
+    later_content = later_content.name if later_content.is_a?(Task)
+    earlier_content = earlier_content.name if earlier_content.is_a?(Task)
+  
+    page.body.index(earlier_content) > page.body.index(later_content)
+  end
+end
+
+RSpec::Matchers.define :appear_before do |later_content|
+  match do |earlier_content|
+    later_content = later_content.name if later_content.is_a?(Task)
+    earlier_content = earlier_content.name if earlier_content.is_a?(Task)
+    
+    page.body.index(earlier_content) < page.body.index(later_content)
+  end
+end
+
+
 RSpec::Matchers.define :have_task do |expected|
   match do |page|
-    find_task_element expected
+    find_task_card expected, page
+  end
+end
+
+RSpec::Matchers.define :have_task_row do |expected|
+  match do |page|
+    find_task_row expected, page
   end
 end
 
@@ -87,6 +112,10 @@ module CapybaraHelper
     visit '/#/tasks'
   end
   
+  def goto_rows
+    click_on 'Toggle Task View'
+  end
+  
   def current_fragment
     URI.parse(page.current_url).fragment
   end
@@ -118,7 +147,7 @@ module CapybaraHelper
   end
   
   def open_edit_task_form(original)
-    card = find_task_element(original)
+    card = find_task_card(original)
 
     within(card) {click_on 'Edit'}
   end
@@ -134,36 +163,52 @@ module CapybaraHelper
     input.native.send_keys(:return)
   end
   
-  def find_task_element(query)
+  def find_task_card(query, element = page)
+    find_task_element query, '.card', element
+  end
+  
+  def find_task_row(query, element = page)
+    find_task_element query, '.task-row', element
+  end
+  
+  def find_task_slot(slot)
+    selectors = {
+      essential: ".task-rows-essential",
+      nice_task_1: ".task-rows-nice1",
+      nice_task_2: ".task-rows-nice2",
+      rest: ".task-rows-rest"
+    }
+    # binding.pry; 
+    
+    page.find selectors[slot]
+  end
+  
+  def find_task_element(query, selector, element)
     raise ArgumentError, 'must specify query' if query.blank?
-    card_selector = '.task-cards .card'
     
-    page.has_selector? card_selector
-    cards = page.find_all card_selector
+    element.has_selector? selector
+    tasks = element.find_all selector
     
-    card = cards.find do |card|
-      
+    task = tasks.find do |task|
+      # binding.pry; 
       if query[:name]
-        next unless card.has_selector? ".card-title", text: query[:name]
+        next unless task.has_selector? ".title", exact_text: query[:name]
       end
       
       if query[:tag]
-        next unless card.has_selector? "span.tag", text: query[:tag]
+        next unless task.has_selector? "span.tag", exact_text: query[:tag]
       end
       
       if !query[:recurring].nil?
-        next unless card.has_selector?('.fa-refresh.active') == query[:recurring]
+        next unless task.has_selector?('.fa-refresh.active') == query[:recurring]
       end
       
       true
     end
 
-    unless card
-      puts page.html
-      raise 'didnt find task'
-    end
+    return false unless task
 
-    card
+    task
   end
   
   def edit_tag(original: {}, name: 'test', goal: 100, show_meter: true)
@@ -196,6 +241,21 @@ module CapybaraHelper
     end
 
     element
+  end
+  
+  def drag_drop(draggable, droppable)
+    draggable = find_task_row(draggable) if draggable.is_a? Task
+    droppable = find_task_row(droppable) if droppable.is_a? Task
+    
+    page.driver.browser.action.
+      move_to(draggable.native).
+      click_and_hold.
+      move_by(10,10).
+      move_to(droppable.native, 0, 30).
+      release.
+      perform
+      
+    sleep 0.5
   end
 end
 

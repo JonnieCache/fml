@@ -2,6 +2,7 @@ require 'app/models/task'
 
 class Completion < Sequel::Model
   many_to_one :task
+  many_to_one :user
   
   dataset_module do
     def for_tag(tag)

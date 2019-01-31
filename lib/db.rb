@@ -21,7 +21,13 @@ if ENV["RACK_ENV"] == 'development'
       ['#FF7F50']
     end
     
-    Paint[msg+"\n", *color]
+    output = [msg]
+    
+    output << "    "+caller.find {|l| l =~ /fml/ && l !~ /db\.rb/} if FMLLogger.fml_log_level == Logger::DEBUG
+    
+    output = output.each_with_object('') {|o, s| s << o; s << "\n"}
+    
+    Paint[output, *color]
   end
 
   DB.loggers << logger

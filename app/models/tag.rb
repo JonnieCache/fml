@@ -14,7 +14,7 @@ class Tag < Sequel::Model
   
   def validate
     validates_presence :user_id
-    # length name 15
+    # length name 1
   end
   
   def to_param

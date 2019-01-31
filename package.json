@@ -27,10 +27,12 @@
     "lodash.isequal": "*",
     "lodash.mapvalues": "*",
     "lodash.partial": "^4.2.1",
+    "lodash.remove": "^4.7.0",
     "minimatch": ">=3.0.4",
     "nan": "2.11.1",
     "node-sass": "4.11.0",
-    "react": "*",
+    "react": "^16.7.0",
+    "react-beautiful-dnd": "^10.0.3",
     "react-dom": "*",
     "react-progressbar": "*",
     "react-select": ">=1.0.0-rc.5",
@@ -41,7 +43,7 @@
     "shake.js": "^1.2.2",
     "style-loader": "*",
     "wade": "*",
-    "webpack": "*",
+    "webpack": "3.11.0",
     "whatwg-fetch": "*"
   }
 }

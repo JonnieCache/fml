@@ -75,7 +75,7 @@ describe 'Search UI' do
         fill_in 'search-term', with: 'go to school'
         find_field('search-term').send_keys :enter
 
-        card = find_task_element(task3)
+        card = find_task_card(task3)
         within(card) {click_on 'Complete!'}
 
         sleep 0.1

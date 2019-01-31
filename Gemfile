@@ -2,12 +2,12 @@
 source "https://rubygems.org"
 
 gem 'roda'
-gem 'rodauth', '1.18.0'
+gem 'rodauth', '1.19.0'
 gem 'haml'
 gem 'puma'
 gem 'rake'
 gem 'dotenv'
-gem 'sequel', '5.2.0'
+gem 'sequel', '5.16.0'
 gem 'sequel_pg', require: false
 gem 'pg'
 gem 'state_machines'
@@ -15,7 +15,7 @@ gem 'state_machines-activemodel'
 gem 'pry'
 gem 'racksh'
 gem 'rack', '>=2.0.6'
-gem 'awesome_print'
+gem 'awesome_print', '2.0.0.pre2'
 gem 'rasem'
 gem 'color-generator'
 gem 'paint'
@@ -51,4 +51,5 @@ group :development, :test do
   gem 'byebug', git: 'https://github.com/deivid-rodriguez/byebug'
   gem 'pry-doc'
   gem 'guard-rack'
+  gem 'binding_of_caller'
 end

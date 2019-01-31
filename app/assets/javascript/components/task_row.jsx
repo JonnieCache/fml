@@ -75,17 +75,19 @@ export default class TaskRow extends React.Component {
     const ghosts = this.state.ghosts.map((ghost)=> (<span key={ghost} onAnimationEnd={this.ghostVanish} className="value-ghost ghost-enter-active">{ghost}</span>));
     
     return (
-      <div className="task-row" data-id={this.props.task.id}>
-        <h4 className="">{this.props.task.name}</h4>
-        <div className="task-row-data">
-          <div className="tag-wrapper">{tagElement}</div>
-          <i className={recurringClass}/>
-          <div className="value">
-            {ghosts}
-            <span className="value-real">{this.props.task.value}</span>
-          </div>
-          <div className="btn-group" role="group">
-            {buttons}
+      <div className="task-row-wrapper">
+        <div className="task-row" data-id={this.props.task.id}>
+          <h4 className="title">{this.props.task.name}</h4>
+          <div className="task-row-data">
+            <div className="tag-wrapper">{tagElement}</div>
+            <i className={recurringClass}/>
+            <div className="value">
+              {ghosts}
+              <span className="value-real">{this.props.task.value}</span>
+            </div>
+            <div className="btn-group" role="group">
+              {buttons}
+            </div>
           </div>
         </div>
       </div>

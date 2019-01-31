@@ -81,7 +81,7 @@ RSpec.configure do |config|
   end
   
   config.before(:suite) do
-    DatabaseCleaner[:sequel].clean_with :truncation
+    DatabaseCleaner[:sequel].clean_with :truncation, reset_ids: true
   end
   
   config.before(:each) do |example|

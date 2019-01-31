@@ -16,6 +16,14 @@ FactoryGirl.define do
     value 10
     
     task
+    user
+  end
+  
+  factory :nomination do
+    nominated_for { Date.today }
+    # task_order [1,2]
+    
+    user
   end
   
   factory :user do

@@ -1,5 +1,6 @@
 require 'app/calculators/combo_calculator'
 require 'app/interactors/task_completion_interactor'
+require 'app/interactors/task_sorting_interactor'
 
 describe ComboCalculator do
   let(:user) {create :user}
@@ -69,6 +70,63 @@ describe ComboCalculator do
       result = calc.calculate!
       expect(result[:combo]).to eq 3
       expect(result[:score]).to eq 8
+    end
+  end
+  
+  describe 'nominations' do
+    let(:task2) {create :task, value: 1, recurring: false, user: user}
+    let(:task3) {create :task, value: 1, recurring: false, user: user}
+    
+    it 'resets the combo if an essential task is missed' do
+      TaskSortingInteractor.new(user: user, date: Date.new(2017,1,2), essential_task: task2, nice_task_1: task, task_order: [task2, task]).process!
+      
+      TaskCompletionInteractor.new(task: task, time: Time.new(2017,1,1,0)).process!
+      TaskCompletionInteractor.new(task: task, time: Time.new(2017,1,1,0)).process!
+      calc = ComboCalculator.new(user, time: Time.new(2017,1,1,8))
+      result = calc.calculate!
+      
+      expect(result[:score]).to eq 3
+      expect(result[:combo]).to eq 2
+      
+      TaskCompletionInteractor.new(task: task, time: Time.new(2017,1,2,5)).process!
+      TaskCompletionInteractor.new(task: task, time: Time.new(2017,1,2,5)).process!
+      calc = ComboCalculator.new(user, time: Time.new(2017,1,2,8))
+      result = calc.calculate!
+      
+      expect(result[:score]).to eq 18
+      expect(result[:combo]).to eq 3
+      
+      calc = ComboCalculator.new(user, time: Time.new(2017,1,3,8))
+      result = calc.calculate!
+      
+      expect(result[:score]).to eq 18
+      expect(result[:combo]).to eq 1
+    end
+    
+    it 'adds 3 to the score when an essential task is completed' do
+      TaskSortingInteractor.new(user: user, date: Date.new(2017,1,1), essential_task: task2, task_order: [task2]).process!
+      # TaskNominationInteractor.new(task: task2, date: Date.new(2017,1,1), priority: 0).process!
+      
+      TaskCompletionInteractor.new(task: task, time: Time.new(2017,1,1,0)).process!
+      TaskCompletionInteractor.new(task: task2, time: Time.new(2017,1,1,0)).process!
+      calc = ComboCalculator.new(user, time: Time.new(2017,1,1,8))
+      result = calc.calculate!
+      
+      expect(result[:score]).to eq 9
+      expect(result[:combo]).to eq 2
+    end
+    
+    it 'adds 2 to the score when a nice to have task is completed' do
+      TaskSortingInteractor.new(user: user, date: Date.new(2017,1,1), essential_task: task, nice_task_1: task2, nice_task_2: task3, task_order: [task, task2, task3]).process!
+      # TaskNominationInteractor.new(task: task2, date: Date.new(2017,1,1), priority: 2).process!
+      
+      TaskCompletionInteractor.new(task: task, time: Time.new(2017,1,1,0)).process!
+      TaskCompletionInteractor.new(task: task3, time: Time.new(2017,1,1,0)).process!
+      calc = ComboCalculator.new(user, time: Time.new(2017,1,1,8))
+      result = calc.calculate!
+      
+      expect(result[:score]).to eq 10
+      expect(result[:combo]).to eq 2
     end
   end
 end

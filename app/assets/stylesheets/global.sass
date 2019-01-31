@@ -382,16 +382,21 @@ input.search
   cursor: pointer
 
 .task-rows
+  max-width: 860px
+  margin: 0 auto
+  min-height: 35px
+
+.task-row-wrapper
+  margin-bottom: 0.75rem
 
 .task-row
-  margin: 0 auto 0.5rem auto
   display: flex
   flex-wrap: wrap
-  max-width: 860px
   // background-color: rgba(0, 0, 0, 0.3)
   background-color: rgba(100,100,255,0.2)
   align-items: center
   padding: 3px 22px 3px 15px
+  
   
   @include media-breakpoint-down(sm)
     align-items: start
@@ -437,3 +442,4 @@ input.search
   
   .value-real
     position: static !important
+    

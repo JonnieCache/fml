@@ -1,11 +1,27 @@
-require 'app/interactors/task_close_interactor'
+require 'app/interactors/task_completion_interactor'
 
-describe TaskCloseInteractor do
+describe TaskCompletionInteractor do
   let(:task) {create :task, value: 100}
-  let(:interactor) {TaskCloseInteractor.new(task: task)}
-  before {interactor.process!}
+  let(:time) {Time.new 2019, 1, 1}
+  let(:interactor) {TaskCompletionInteractor.new(task: task, time: time)}
   
-  it 'closes the task' do
-    expect(task).to be_closed
+  it 'returns a valid completion' do
+    completion = interactor.process!
+    
+    expect(completion).to be_a Completion
+    expect(completion).to be_valid
   end
+  
+  it 'assigns the value' do
+    completion = interactor.process!
+    
+    expect(completion.value).to eq 100
+  end
+  
+  it 'updates the task' do
+    interactor.process!
+    
+    expect(task.last_completed_at).to eq time
+  end
+  
 end

@@ -13,7 +13,7 @@ describe 'Task UI' do
     context 'with a recurring task' do
       it 'completes the task, leaves it on the page' do
         go_home
-        card = find_task_element(task)
+        card = find_task_card(task)
 
         within(card) {click_on 'Complete!'}
         expect(page).to have_content 'Score: 2'
@@ -25,7 +25,7 @@ describe 'Task UI' do
     context 'with a nonrecurring task' do
       it 'completes the task, removes it from the page' do
         go_home
-        card = find_task_element(task2)
+        card = find_task_card(task2)
 
         within(card) {click_on 'Complete!'}
         expect(page).to have_content 'Score: 4'

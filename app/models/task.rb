@@ -1,9 +1,11 @@
 require 'app/models/user'
 require 'app/models/completion'
 require 'app/models/tag'
+require 'app/models/nomination'
 
 class Task < Sequel::Model
   one_to_many :completions
+  one_to_many :nominations
   many_to_one :user
   many_to_one :tag
   
@@ -26,7 +28,9 @@ class Task < Sequel::Model
   dataset_module do
     
     def order_by_ids(ids)
-      left_join("unnest(?) WITH ORDINALITY AS ordering(id, ord) USING (id)".lit(ids.pg_array(:integer))).
+      ids ||= Array(ids)
+      
+      left_join(Sequel.lit("unnest(?) WITH ORDINALITY AS ordering(id, ord) USING (id)", Sequel.pg_array(ids, :integer))).
       order(Sequel[:ordering][:ord]).
       select_all(:tasks)
     end
@@ -38,6 +42,10 @@ class Task < Sequel::Model
   
   def to_hash
     values.except(:user_id)
+  end
+  
+  def to_s
+    "#<Task #{id}: #{name}>"
   end
 
 end

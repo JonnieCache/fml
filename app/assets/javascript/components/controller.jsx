@@ -19,6 +19,7 @@ export default class Controller extends React.Component {
   
   componentDidMount() {
     store.on('STATE_UPDATED', (update)=> {
+      // update.tasks = update.tasks.filter(task=> task.state == 'incomplete').map(this._parseTask);
       update.tasks = update.tasks.map(this._parseTask);
       update.completions = mapValues(update.completions, this._parseCompletion);
       this.setState(update);
@@ -156,8 +157,106 @@ export default class Controller extends React.Component {
         return state
       });
     });
+    
+    store.on('SORT_TASKS', (sortData)=> {
+      var src = sortData.source.index;
+      var dest = sortData.destination.index;
+      
+      if(sortData.destination.droppableId == 'task-rows-nice1' && this.state.nomination.essential_task_id) {
+        dest++;
+      }
+      if(sortData.destination.droppableId == 'task-rows-nice2') {
+        if(this.state.nomination.essential_task_id) dest++;
+        if(this.state.nomination.nice_task_1_id)    dest++;
+      }
+      if(sortData.destination.droppableId == 'task-rows') {
+        if(this.state.nomination.essential_task_id) dest++;
+        if(this.state.nomination.nice_task_1_id)    dest++;
+        if(this.state.nomination.nice_task_2_id)    dest++;
+      }
+      
+      if(sortData.destination.droppableId == 'task-rows-nice1' && this.state.nomination.essential_task_id) {
+        src++;
+      }
+      if(sortData.destination.droppableId == 'task-rows-nice2') {
+        if(this.state.nomination.essential_task_id) src++;
+        if(this.state.nomination.nice_task_1_id)    src++;
+      }
+      if(sortData.destination.droppableId == 'task-rows') {
+        if(this.state.nomination.essential_task_id) src++;
+        if(this.state.nomination.nice_task_1_id)    src++;
+        if(this.state.nomination.nice_task_2_id)    src++;
+      }
+      
+      const newTasks = this._reorder(
+        this.state.tasks,
+        Math.min(src, this.state.tasks.length-1),
+        Math.min(dest, this.state.tasks.length-1)
+      );
+      
+      
+      var essentialTaskId;
+      var niceTask1Id;
+      var niceTask2Id;
+      
+      if(sortData.destination.droppableId == 'task-rows-essential') {
+        essentialTaskId = sortData.draggableId;
+      } else if(sortData.destination.droppableId == 'task-rows-nice1') {
+        niceTask1Id = sortData.draggableId;
+      } else if(sortData.destination.droppableId == 'task-rows-nice2') {
+        niceTask2Id = sortData.draggableId;
+      }
+      
+      if(sortData.source.droppableId == 'task-rows-essential') {
+        essentialTaskId = false;
+      } else if(sortData.source.droppableId == 'task-rows-nice1') {
+        niceTask1Id = false;
+      } else if(sortData.source.droppableId == 'task-rows-nice2') {
+        niceTask2Id = false;
+      }
+      
+      var update = {
+        taskOrder: newTasks.map((t)=> t.id),
+        essentialTaskId: essentialTaskId,
+        niceTask1Id: niceTask1Id,
+        niceTask2Id: niceTask2Id
+      }
+      
+      this.setState(function(newState){
+        newState.tasks = newTasks;
+        newState.user.task_order = update.taskOrder;
+        
+        if(essentialTaskId) {
+          newState.nomination.essential_task_id = essentialTaskId;
+        } else if(essentialTaskId === false) {
+          delete newState.nomination.essential_task_id;
+        }
+        if(niceTask1Id) {
+          newState.nomination.nice_task_1_id = niceTask1Id;
+        } else if(niceTask1Id === false) {
+          delete newState.nomination.nice_task_1_id;
+        }
+        if(niceTask2Id) {
+          newState.nomination.nice_task_2_id = niceTask2Id;
+        } else if(niceTask2Id === false) {
+          delete newState.nomination.nice_task_2_id;
+        }
+        
+        return newState;
+      });
+      
+      store.sortTasks(update);
+    });
         
     store.getState();
+  }
+  
+  _reorder(list, startIndex, endIndex) {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
   }
   
   _replaceTasks(oldTasks, newTasks) {
@@ -173,6 +272,7 @@ export default class Controller extends React.Component {
     task.created_at        = new Date(task.created_at);
     task.updated_at        = new Date(task.updated_at);
     task.last_completed_at = new Date(task.last_completed_at);
+    task.last_nominated_at = new Date(task.last_nominated_at);
     
     return task;
   }

@@ -41,12 +41,4 @@ describe Task do
       expect(task).to be_finished
     end
   end
-  
-  describe 'tag assignment from name string' do
-    it 'creates and assigns a new tag' do
-      expect {task.tag_id = 'foo'; task.save}.to change {Tag.count}.from(0).to(1)
-      task.reload
-      expect(task.tag.name).to eq 'foo'
-    end
-  end
 end
