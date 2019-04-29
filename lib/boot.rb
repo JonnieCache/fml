@@ -15,11 +15,15 @@ Dotenv.load *%W{
 require 'lib/core_ext/date'
 require 'lib/core_ext/object'
 
-db_url = 'postgres://'
-db_url << "#{ENV['DB_USERNAME']}:#{ENV['DB_PASSWORD']}@" if ENV['DB_USERNAME'].present? #&& ENV['DB_PASSWORD'].present?
-db_url << ENV['DB_HOST'] if ENV['DB_HOST'].present?
-db_url << "/#{ENV['DB_NAME']}"
-DB_URL = db_url
+DB_URL = if ENV['DB_URL'].present?
+  ENV['DB_URL']
+else
+  db_url = 'postgres://'
+  db_url << "#{ENV['DB_USERNAME']}:#{ENV['DB_PASSWORD']}@" if ENV['DB_USERNAME'].present? #&& ENV['DB_PASSWORD'].present?
+  db_url << ENV['DB_HOST'] if ENV['DB_HOST'].present?
+  db_url << "/#{ENV['DB_NAME']}"
+  db_url
+end
 
 DB_CONFIG = {
   adapter: 'postgres',
