@@ -1,11 +1,11 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 set -e
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+cd "${BASH_SOURCE%/*}/" || exit
 
-docker build -t fml-ruby $DIR/ruby
-docker build -t fml-build $DIR/build
-docker build -t fml-test $DIR/test
-docker build -t fml-app $DIR/app
-docker build -t fml-web $DIR/web
+docker build -t fml-ruby ruby
+docker build -t fml-build build
+docker build -t fml-test test
+docker build -t fml-app app
+docker build -t fml-web web
