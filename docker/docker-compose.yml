@@ -44,9 +44,12 @@ services:
     ports:
       - "9292:9292"
     volumes:
-       - type: bind
+      - type: bind
          source: ..
          target: /fml/
+      - type: bind
+        source: /var/run/postgresql
+        target: /tmp
 
     environment:
       - DB_NAME
@@ -54,4 +57,5 @@ services:
       - DB_USERNAME
       - DB_PASSWORD
       - RACK_ENV=production
+      - DB_URL=postgresql://fml@/fml_development
     
