@@ -13,4 +13,5 @@ tmp
 builds
 .yardoc
 doc
-
+*.log
+.pry_history
