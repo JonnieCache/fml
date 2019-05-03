@@ -1,5 +1,6 @@
 **/.env*
 **/!.env.sample
+**/.DS_Store
 public/assets/*
 !public/assets/img
 node_modules
