@@ -1,0 +1,32 @@
+version: '3.4'
+services:
+  db:
+    image: postgres
+  test:
+    depends_on:
+      - db
+    image: fml_app:test
+    environment:
+      - DB_NAME=fml_test
+      - DB_HOST=db
+      - DB_USERNAME=postgres
+      - RACK_ENV=test
+  app:
+    image: fml_app:production
+    working_dir: /fml
+    container_name: fml_app
+    ports:
+      - "9292:9292"
+    volumes:
+      - type: bind
+        source: /var/run/postgresql
+        target: /tmp
+
+    environment:
+      - DB_NAME
+      - DB_HOST
+      - DB_USERNAME
+      - DB_PASSWORD
+      - RACK_ENV=production
+      - DB_URL=postgresql://fml@/fml_development
+    

@@ -1,45 +1,54 @@
-FROM fml-ruby
+FROM ruby:2.6.3-alpine3.9 AS build
 
-RUN apk add -u \
+RUN apk add --no-cache \
+  build-base \
   git \
-  ruby-dev \
   python2 \
   libsass-dev \
-  build-base \
   libxml2-dev \
   libxslt-dev \
   libffi-dev \
   postgresql-dev \
   nodejs-current \
-  # yarn \
-  libuv \
-  libpq
-
-RUN gem install bundler
-RUN bundle config --global silence_root_warning 1
+  npm \
+  libuv
 
 WORKDIR /tmp
+
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
-
-RUN bundle install --without development
+RUN bundle config build.nokogiri --use-system-libraries
+RUN bundle install --no-cache --jobs=4 --deployment --binstubs --without development
 
 COPY package.json package.json
 COPY package-lock.json package-lock.json
-# COPY yarn.lock yarn.lock
-# RUN yarn install --production=true
-RUN npm install --global --production=true
+RUN npm install --no-cache --production
 
 COPY webpack.config.babel.js webpack.config.babel.js
 COPY .babelrc .babelrc
 COPY app/assets app/assets
-RUN $(yarn bin)/webpack -p
+RUN $(npm bin)/webpack -p
+
+FROM ruby:2.6.3-alpine3.9 AS production
+
+RUN apk add --no-cache \
+  libpq
 
 WORKDIR '/fml'
 COPY . '/fml'
-# RUN mv /tmp/vendor /fml/
-# RUN mv /tmp/bin /fml/
-# RUN mv /tmp/node_modules /fml/
-# RUN cp -R /tmp/assets/* /fml/public/assets/
+COPY --from=build /tmp/public/assets/* /fml/public/assets/
+COPY --from=build /tmp/vendor /fml/vendor
+COPY --from=build /tmp/bin /fml/bin
+COPY --from=build /usr/local/bundle/config /usr/local/bundle/config
 
 CMD ["bundle", "exec", "puma"]
+
+FROM production AS test
+
+RUN apk add --no-cache \
+  chromium \
+  chromium-chromedriver
+
+CMD ["./ci-rspec.sh"]
+
+FROM production
