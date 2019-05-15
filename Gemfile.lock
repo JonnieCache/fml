@@ -216,5 +216,3 @@ DEPENDENCIES
   terminal-notifier (= 1.7.1)
   yard
 
-BUNDLED WITH
-   1.17.2
