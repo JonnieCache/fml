@@ -1,8 +1,2 @@
-builder:
-  class: ScriptBuilder
-  config:
-    command: docker build --target production -t fml:<%= commit %> .
-tester:
-  class: ScriptTester
-  config:
-    command: docker build --target test -t fml:<%= commit %>-test .; docker-compose run -e VERSION=<%= commit %> test  
+build: docker build --target production -t fml:<%= commit %> .
+test: docker build --target test -t fml:<%= commit %>-test .; docker-compose run -e VERSION=<%= commit %> test  
