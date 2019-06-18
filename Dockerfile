@@ -17,6 +17,8 @@ WORKDIR /tmp
 
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
+
+RUN gem install bundler:2.0.1
 RUN bundle config build.nokogiri --use-system-libraries
 RUN bundle install --no-cache --jobs=4 --deployment --binstubs --without development
 
