@@ -2,4 +2,4 @@ build: VERSION=<%= commit %> docker-compose build --force-rm test
 test: export VERSION=<%= commit %> && docker-compose run --rm test && docker-compose down
 hooks:
   after_test_success: VERSION=<%= commit %> docker-compose build app
-  after_all: rm -rf <%= export %>#; docker rmi fml:<%= commit %>-test
+  after_all: rm -rf <%= export %>; docker rmi fml:<%= commit %>-test
