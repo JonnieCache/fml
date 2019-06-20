@@ -14,7 +14,7 @@
     "babel-loader": "*",
     "babel-preset-es2015": "*",
     "babel-preset-react": "*",
-    "bootstrap": "^4",
+    "bootstrap": ">=4.3.1",
     "classnames": "*",
     "coloreact": "*",
     "css-loader": "^2.1.1",
@@ -33,7 +33,7 @@
     "node-sass": "^4.12.0",
     "react": "^16.7.0",
     "react-beautiful-dnd": "^10.0.3",
-    "react-dom": "*",
+    "react-dom": ">=16.2.1",
     "react-progressbar": "*",
     "react-select": ">=1.0.0-rc.5",
     "react-sortable-hoc": "^0.8.4",
@@ -44,6 +44,8 @@
     "style-loader": "*",
     "wade": "*",
     "webpack": "3.11.0",
-    "whatwg-fetch": "*"
+    "whatwg-fetch": "*",
+    "tar": ">=2.2.2",
+    "fstream": ">=1.0.12"
   }
 }

@@ -97,7 +97,7 @@ export default class Signup extends React.Component {
               </div>
               <form className="d-flex flex-column" onSubmit={this.signup}>
                 <div className="form-group">
-                  <input className="form-control" type="email" value={this.state.login} onChange={this.update} name="login" placeholder="Email" autoFocus="true" />
+                  <input className="form-control" type="email" value={this.state.login} onChange={this.update} name="login" placeholder="Email" autoFocus />
                 </div>
                 <div className="form-group">
                   <input className="form-control" type="password" value={this.state.password} onChange={this.update} name="password" placeholder="Password" />

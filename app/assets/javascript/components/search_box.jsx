@@ -197,7 +197,7 @@ export default class SearchBox extends React.Component {
             autoComplete="false"
             placeholder="search..."
             name="search-term"
-            autoFocus="true"
+            autoFocus
             className="search"
             onChange={this.search}
             onKeyDown={this.handleInputKeyDown}
