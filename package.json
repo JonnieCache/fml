@@ -30,7 +30,7 @@
     "lodash.remove": "^4.7.0",
     "minimatch": ">=3.0.4",
     "nan": "2.11.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "react": "^16.7.0",
     "react-beautiful-dnd": "^10.0.3",
     "react-dom": ">=16.2.1",
